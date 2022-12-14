@@ -7,6 +7,7 @@ import 'package:money_record/config/app_color.dart';
 import 'package:money_record/config/app_format.dart';
 import 'package:money_record/config/session.dart';
 import 'package:money_record/presentation/controller/c_user.dart';
+import 'package:money_record/presentation/page/history/add_history_page.dart';
 import 'package:money_record/presentation/page/login_page.dart';
 
 import '../controller/c_home.dart';
@@ -30,106 +31,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      endDrawer: Drawer(
-        child: ListView(
-          children: [
-            DrawerHeader(
-                margin: const EdgeInsets.only(bottom: 0),
-                padding: const EdgeInsets.fromLTRB(20, 16, 16, 20),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(children: [
-                      Image.asset(AppAsset.profile),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Obx(() {
-                              return Text(
-                                cUser.data.name ?? '',
-                                style: const TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 20),
-                              );
-                            }),
-                            Obx(() {
-                              return Text(
-                                cUser.data.email ?? '',
-                                style: const TextStyle(
-                                    fontWeight: FontWeight.w300, fontSize: 16),
-                              );
-                            })
-                          ],
-                        ),
-                      ),
-                    ]),
-                    Material(
-                      borderRadius: BorderRadius.circular(30),
-                      color: AppColor.primary,
-                      child: InkWell(
-                          onTap: () {
-                            Session.clearUser();
-                            Get.off(() => const LoginPage());
-                          },
-                          borderRadius: BorderRadius.circular(30),
-                          child: const Padding(
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 24, vertical: 8),
-                            child: Text(
-                              'Logout',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 16),
-                            ),
-                          )),
-                    )
-                  ],
-                )),
-            ListTile(
-              onTap: () {},
-              leading: const Icon(Icons.add),
-              horizontalTitleGap: 0,
-              title: const Text('Tambah Baru'),
-              trailing: const Icon(Icons.navigate_next),
-            ),
-            const Divider(
-              height: 1,
-            ),
-            ListTile(
-              onTap: () {},
-              leading: const Icon(Icons.south_west),
-              horizontalTitleGap: 0,
-              title: const Text('Pemasukan'),
-              trailing: const Icon(Icons.navigate_next),
-            ),
-            const Divider(
-              height: 1,
-            ),
-            ListTile(
-              onTap: () {},
-              leading: const Icon(Icons.north_east),
-              horizontalTitleGap: 0,
-              title: const Text('Pengeluaran'),
-              trailing: const Icon(Icons.navigate_next),
-            ),
-            const Divider(
-              height: 1,
-            ),
-            ListTile(
-              onTap: () {},
-              leading: const Icon(Icons.history),
-              horizontalTitleGap: 0,
-              title: const Text('Riwayat'),
-              trailing: const Icon(Icons.navigate_next),
-            ),
-            const Divider(
-              height: 1,
-            ),
-          ],
-        ),
-      ),
+      endDrawer: drawer(),
       body: Column(
         children: [
           Padding(
@@ -225,6 +127,115 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  Drawer drawer() {
+    return Drawer(
+      child: ListView(
+        children: [
+          DrawerHeader(
+              margin: const EdgeInsets.only(bottom: 0),
+              padding: const EdgeInsets.fromLTRB(20, 16, 16, 20),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(children: [
+                    Image.asset(AppAsset.profile),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Obx(() {
+                            return Text(
+                              cUser.data.name ?? '',
+                              style: const TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 20),
+                            );
+                          }),
+                          Obx(() {
+                            return Text(
+                              cUser.data.email ?? '',
+                              style: const TextStyle(
+                                  fontWeight: FontWeight.w300, fontSize: 16),
+                            );
+                          })
+                        ],
+                      ),
+                    ),
+                  ]),
+                  Material(
+                    borderRadius: BorderRadius.circular(30),
+                    color: AppColor.primary,
+                    child: InkWell(
+                        onTap: () {
+                          Session.clearUser();
+                          Get.off(() => const LoginPage());
+                        },
+                        borderRadius: BorderRadius.circular(30),
+                        child: const Padding(
+                          padding:
+                              EdgeInsets.symmetric(horizontal: 24, vertical: 8),
+                          child: Text(
+                            'Logout',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16),
+                          ),
+                        )),
+                  )
+                ],
+              )),
+          ListTile(
+            onTap: () {
+              Get.to(() => AddHistoryPage())?.then((value) {
+                if (value ?? false) {
+                  cHome.getAnalysis(cUser.data.idUser!);
+                }
+              });
+            },
+            leading: const Icon(Icons.add),
+            horizontalTitleGap: 0,
+            title: const Text('Tambah Baru'),
+            trailing: const Icon(Icons.navigate_next),
+          ),
+          const Divider(
+            height: 1,
+          ),
+          ListTile(
+            onTap: () {},
+            leading: const Icon(Icons.south_west),
+            horizontalTitleGap: 0,
+            title: const Text('Pemasukan'),
+            trailing: const Icon(Icons.navigate_next),
+          ),
+          const Divider(
+            height: 1,
+          ),
+          ListTile(
+            onTap: () {},
+            leading: const Icon(Icons.north_east),
+            horizontalTitleGap: 0,
+            title: const Text('Pengeluaran'),
+            trailing: const Icon(Icons.navigate_next),
+          ),
+          const Divider(
+            height: 1,
+          ),
+          ListTile(
+            onTap: () {},
+            leading: const Icon(Icons.history),
+            horizontalTitleGap: 0,
+            title: const Text('Riwayat'),
+            trailing: const Icon(Icons.navigate_next),
+          ),
+          const Divider(
+            height: 1,
+          ),
+        ],
+      ),
+    );
+  }
+
   Row monthly(BuildContext context) {
     return Row(
       children: [
@@ -233,23 +244,38 @@ class _HomePageState extends State<HomePage> {
           height: MediaQuery.of(context).size.width * 0.5,
           child: Stack(
             children: [
-              DChartPie(
-                data: const [
-                  {'domain': 'Flutter', 'measure': 28},
-                  {'domain': 'React Native', 'measure': 27},
-                ],
-                fillColor: (pieData, index) => Colors.purple,
-                donutWidth: 30,
-                labelColor: Colors.white,
-              ),
-              Center(
-                  child: Text(
-                '60%',
-                style: Theme.of(context)
-                    .textTheme
-                    .headline4!
-                    .copyWith(color: AppColor.primary),
-              ))
+              Obx(() {
+                return DChartPie(
+                  data: [
+                    {'domain': 'income', 'measure': cHome.monthIncome},
+                    {'domain': 'outcome', 'measure': cHome.monthOutcome},
+                    if (cHome.monthIncome == 0 && cHome.monthOutcome == 0)
+                      {'domain': 'nol', 'measure': 1}
+                  ],
+                  fillColor: (pieData, index) {
+                    switch (pieData['domain']) {
+                      case 'income':
+                        return AppColor.primary;
+                      case 'outcome':
+                        return AppColor.chart;
+                      default:
+                        return AppColor.bg.withOpacity(0.5);
+                    }
+                  },
+                  donutWidth: 20,
+                  labelColor: Colors.transparent,
+                  showLabelLine: false,
+                );
+              }),
+              Center(child: Obx(() {
+                return Text(
+                  '${cHome.percentIncome}%',
+                  style: Theme.of(context)
+                      .textTheme
+                      .headline4!
+                      .copyWith(color: AppColor.primary),
+                );
+              }))
             ],
           ),
         ),
@@ -280,18 +306,20 @@ class _HomePageState extends State<HomePage> {
               ],
             ),
             DView.spaceHeight(20),
-            const Text('Pemasukan'),
-            const Text('lebih besah 20%'),
-            const Text('dari Pengeluaran'),
+            Obx(() {
+              return Text(cHome.monthPercent);
+            }),
             DView.spaceHeight(10),
             const Text('Atau setara:'),
-            const Text(
-              'Rp 20.000,00',
-              style: TextStyle(
-                  color: AppColor.primary,
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold),
-            )
+            Obx(() {
+              return Text(
+                AppFormat.currency(cHome.differentMonth.toString()),
+                style: TextStyle(
+                    color: AppColor.primary,
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold),
+              );
+            })
           ],
         )
       ],
@@ -301,27 +329,27 @@ class _HomePageState extends State<HomePage> {
   AspectRatio weekly() {
     return AspectRatio(
       aspectRatio: 16 / 9,
-      child: DChartBar(
-        data: const [
-          {
-            'id': 'Bar',
-            'data': [
-              {'domain': '2020', 'measure': 3},
-              {'domain': '2021', 'measure': 4},
-              {'domain': '2022', 'measure': 6},
-              {'domain': '2023', 'measure': 0.3},
-            ],
-          },
-        ],
-        domainLabelPaddingToAxisLine: 16,
-        axisLineTick: 2,
-        axisLinePointTick: 2,
-        axisLinePointWidth: 10,
-        axisLineColor: Colors.green,
-        measureLabelPaddingToAxisLine: 16,
-        barColor: (barData, index, id) => Colors.green,
-        showBarValue: true,
-      ),
+      child: Obx(() {
+        return DChartBar(
+          data: [
+            {
+              'id': 'Bar',
+              'data': List.generate(7, (index) {
+                return {
+                  'domain': cHome.weekText()[index],
+                  'measure': cHome.week[index]
+                };
+              }),
+            },
+          ],
+          domainLabelPaddingToAxisLine: 8,
+          axisLineTick: 2,
+          axisLineColor: AppColor.primary,
+          measureLabelPaddingToAxisLine: 16,
+          barColor: (barData, index, id) => AppColor.primary,
+          showBarValue: true,
+        );
+      }),
     );
   }
 
