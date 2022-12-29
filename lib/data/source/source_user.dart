@@ -1,9 +1,4 @@
-import 'package:d_info/d_info.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:money_record/config/api.dart';
-import 'package:money_record/config/app_request.dart';
-import 'package:money_record/config/session.dart';
-import 'package:money_record/data/model/user.dart';
+import 'package:money_record/library/library.dart';
 
 class SourceUser {
   static Future<bool> login(String email, String password) async {

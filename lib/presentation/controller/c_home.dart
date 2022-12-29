@@ -1,5 +1,4 @@
-import 'package:get/get.dart';
-import 'package:money_record/data/source/source_history.dart';
+import 'package:money_record/library/library.dart';
 
 class CHome extends GetxController {
   final _today = 0.0.obs;

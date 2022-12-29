@@ -1,12 +1,4 @@
-import 'package:d_info/d_info.dart';
-import 'package:flutter/material.dart';
-import 'package:d_view/d_view.dart';
-import 'package:get/get.dart';
-import 'package:money_record/config/app_asset.dart';
-import 'package:money_record/config/app_color.dart';
-import 'package:money_record/data/source/source_user.dart';
-import 'package:money_record/presentation/page/home_page.dart';
-import 'package:money_record/presentation/page/register_page.dart';
+import 'package:money_record/library/library.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -40,109 +32,113 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColor.bg,
-      body: LayoutBuilder(builder: (context, constraints) {
-        return SingleChildScrollView(
-          child: ConstrainedBox(
-            constraints: BoxConstraints(maxHeight: constraints.maxHeight),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                DView.nothing(),
-                Form(
-                  key: formKey,
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 30),
-                    child: Column(
-                      children: [
-                        Image.asset(AppAsset.logo),
-                        DView.spaceHeight(40),
-                        TextFormField(
-                          controller: controllerEmail,
-                          validator: (value) =>
-                              value == "" ? "Jangan Kosong" : null,
-                          autovalidateMode: AutovalidateMode.onUserInteraction,
-                          style: const TextStyle(color: Colors.white),
-                          decoration: InputDecoration(
-                              fillColor: AppColor.primary.withOpacity(0.5),
-                              filled: true,
-                              border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(30),
-                                  borderSide: BorderSide.none),
-                              hintText: 'email',
-                              isDense: true,
-                              contentPadding: const EdgeInsets.symmetric(
-                                  horizontal: 20, vertical: 16)),
-                        ),
-                        DView.spaceHeight(),
-                        TextFormField(
-                          controller: controllerPassword,
-                          validator: (value) =>
-                              value == "" ? "Jangan Kosong" : null,
-                          autovalidateMode: AutovalidateMode.onUserInteraction,
-                          obscureText: true,
-                          style: const TextStyle(color: Colors.white),
-                          decoration: InputDecoration(
-                              fillColor: AppColor.primary.withOpacity(0.5),
-                              filled: true,
-                              border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(30),
-                                  borderSide: BorderSide.none),
-                              hintText: 'password',
-                              isDense: true,
-                              contentPadding: const EdgeInsets.symmetric(
-                                  horizontal: 20, vertical: 16)),
-                        ),
-                        DView.spaceHeight(24),
-                        Material(
-                          color: AppColor.primary,
-                          borderRadius: BorderRadius.circular(30),
-                          child: InkWell(
-                            onTap: () => login(),
+      body: SafeArea(
+        child: LayoutBuilder(builder: (context, constraints) {
+          return SingleChildScrollView(
+            child: ConstrainedBox(
+              constraints: BoxConstraints(maxHeight: constraints.maxHeight),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  DView.nothing(),
+                  Form(
+                    key: formKey,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 30),
+                      child: Column(
+                        children: [
+                          Image.asset(AppAsset.logo),
+                          DView.spaceHeight(40),
+                          TextFormField(
+                            controller: controllerEmail,
+                            validator: (value) =>
+                                value == "" ? "Jangan Kosong" : null,
+                            autovalidateMode:
+                                AutovalidateMode.onUserInteraction,
+                            style: const TextStyle(color: Colors.white),
+                            decoration: InputDecoration(
+                                fillColor: AppColor.primary.withOpacity(0.5),
+                                filled: true,
+                                border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(30),
+                                    borderSide: BorderSide.none),
+                                hintText: 'email',
+                                isDense: true,
+                                contentPadding: const EdgeInsets.symmetric(
+                                    horizontal: 20, vertical: 16)),
+                          ),
+                          DView.spaceHeight(),
+                          TextFormField(
+                            controller: controllerPassword,
+                            validator: (value) =>
+                                value == "" ? "Jangan Kosong" : null,
+                            autovalidateMode:
+                                AutovalidateMode.onUserInteraction,
+                            obscureText: true,
+                            style: const TextStyle(color: Colors.white),
+                            decoration: InputDecoration(
+                                fillColor: AppColor.primary.withOpacity(0.5),
+                                filled: true,
+                                border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(30),
+                                    borderSide: BorderSide.none),
+                                hintText: 'password',
+                                isDense: true,
+                                contentPadding: const EdgeInsets.symmetric(
+                                    horizontal: 20, vertical: 16)),
+                          ),
+                          DView.spaceHeight(24),
+                          Material(
+                            color: AppColor.primary,
                             borderRadius: BorderRadius.circular(30),
-                            child: const Padding(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: 40, vertical: 16),
-                              child: Text(
-                                'LOGIN',
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: 14),
+                            child: InkWell(
+                              onTap: () => login(),
+                              borderRadius: BorderRadius.circular(30),
+                              child: const Padding(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 40, vertical: 16),
+                                child: Text(
+                                  'LOGIN',
+                                  style: TextStyle(
+                                      color: Colors.white, fontSize: 14),
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(16, 16, 16, 20),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Text(
-                        'Belum punya akun ? ',
-                        style: TextStyle(fontSize: 16),
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          Get.to(() => const RegisterPage());
-                        },
-                        child: const Text(
-                          'Register',
-                          style: TextStyle(
-                              color: AppColor.primary,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 16),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(16, 16, 16, 20),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Text(
+                          'Belum punya akun ? ',
+                          style: TextStyle(fontSize: 16),
                         ),
-                      )
-                    ],
-                  ),
-                )
-              ],
+                        GestureDetector(
+                          onTap: () {
+                            Get.to(() => const RegisterPage());
+                          },
+                          child: const Text(
+                            'Register',
+                            style: TextStyle(
+                                color: AppColor.primary,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16),
+                          ),
+                        )
+                      ],
+                    ),
+                  )
+                ],
+              ),
             ),
-          ),
-        );
-      }),
+          );
+        }),
+      ),
     );
   }
 }

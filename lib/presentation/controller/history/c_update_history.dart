@@ -1,7 +1,7 @@
-import 'package:money_record/library/library.dart';
 import 'package:intl/intl.dart';
+import 'package:money_record/library/library.dart';
 
-class CAddHistory extends GetxController {
+class CUpdateHistory extends GetxController {
   final _date = DateFormat('yyyy-MM-dd').format(DateTime.now()).obs;
   String get date => _date.value;
   setDate(n) => _date.value = n;
@@ -31,5 +31,15 @@ class CAddHistory extends GetxController {
       return double.parse(previousValue.toString()) + double.parse(element);
     });
     update();
+  }
+
+  init(idUser, date, type) async {
+    History? history = await SourceHistory.whereDate(idUser, date, type);
+    if (history != null) {
+      setDate(history.date);
+      setType(history.type);
+      _items.value = jsonDecode(history.details!);
+      count();
+    }
   }
 }

@@ -1,14 +1,13 @@
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:intl/date_symbol_data_local.dart';
-import 'package:money_record/config/app_color.dart';
-import 'package:money_record/config/session.dart';
-import 'package:money_record/presentation/page/home_page.dart';
-import 'package:money_record/presentation/page/login_page.dart';
-
-import 'data/model/user.dart';
+import 'package:money_record/library/library.dart';
 
 void main() {
+  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark.copyWith(
+      statusBarColor: AppColor.primary, // Color for Android
+      systemNavigationBarColor: Colors.white, // Color for Android
+      statusBarIconBrightness: Brightness.light, //status barIcon Brightness
+      statusBarBrightness:
+          Brightness.dark // Dark == white status bar -- for IOS.
+      ));
   WidgetsFlutterBinding.ensureInitialized();
   initializeDateFormatting('id_ID').then((value) => runApp(const MyApp()));
 }

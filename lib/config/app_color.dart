@@ -1,4 +1,4 @@
-import 'package:flutter/animation.dart';
+import 'package:money_record/library/library.dart';
 
 class AppColor {
   static const primary = Color(0XFF767AE7);

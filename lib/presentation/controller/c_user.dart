@@ -1,6 +1,4 @@
-import 'package:get/get.dart';
-
-import '../../data/model/user.dart';
+import 'package:money_record/library/library.dart';
 
 class CUser extends GetxController {
   final _data = User().obs;
