@@ -99,7 +99,7 @@ class _AddHistoryPageState extends State<AddHistoryPage> {
             DInput(
               controller: controllerName,
               hint: 'Jualan',
-              title: 'Sumber/Objek Pengeluaran',
+              title: 'Sumber/Objek',
             ),
             DView.spaceHeight(),
             DInput(

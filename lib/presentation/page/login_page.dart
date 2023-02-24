@@ -8,8 +8,8 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  final controllerEmail = TextEditingController();
-  final controllerPassword = TextEditingController();
+  final controllerEmail = TextEditingController(text: 'sarah01@gmail.com');
+  final controllerPassword = TextEditingController(text: '123');
   final formKey = GlobalKey<FormState>();
   login() async {
     if (formKey.currentState!.validate()) {
